@@ -59,6 +59,10 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.3")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.3")
+
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
