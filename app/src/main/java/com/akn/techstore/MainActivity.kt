@@ -7,17 +7,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.akn.techstore.ui.navigation.AppNavigation
-import com.akn.techstore.ui.navigation.AuthScreen
-import com.akn.techstore.ui.navigation.BottomNavigationBar
-import com.akn.techstore.ui.navigation.MainScreen
-import com.akn.techstore.ui.view.CartScreen
-import com.akn.techstore.ui.view.LoginScreen
-import com.akn.techstore.ui.view.ProfileScreen
-import com.akn.techstore.ui.view.SignUpScreen
-import com.akn.techstore.ui.view.WelcomeScreen
+import com.akn.techstore.project.navigation.AppNavigation
+import com.akn.techstore.project.navigation.AuthScreen
+import com.akn.techstore.project.view.LoginScreen
+import com.akn.techstore.project.view.SignUpScreen
+import com.akn.techstore.project.view.WelcomeScreen
 
 
 // --- Couleurs et Constantes ---
@@ -73,32 +68,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-
-
-
-@Preview(showBackground = true, name = "Cart Screen Preview")
-@Composable
-fun CartScreenPreview() {
-    MaterialTheme {
-        CartScreen()
-    }
-}
-
-@Preview(showBackground = true, name = "Profile Screen Preview")
-@Composable
-fun ProfileScreenPreview() {
-    MaterialTheme {
-        ProfileScreen()
-    }
-}
-
-@Preview(showBackground = true, name = "Profile Screen Preview")
-@Composable
-fun NavigationPreview() {
-    MaterialTheme {
-        BottomNavigationBar(currentScreen = MainScreen.HOME, onScreenSelected = {})
     }
 }
