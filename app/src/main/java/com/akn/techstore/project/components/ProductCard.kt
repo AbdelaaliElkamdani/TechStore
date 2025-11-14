@@ -27,9 +27,9 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.akn.techstore.DarkTextColor
 import com.akn.techstore.R
 import com.akn.techstore.project.model.data.Product
+import com.akn.techstore.project.theme.DarkText
 
 @Composable
 fun ProductCard(product: Product, modifier: Modifier = Modifier) {
@@ -68,7 +68,7 @@ fun ProductCard(product: Product, modifier: Modifier = Modifier) {
                 Text(
                     product.name,
                     fontWeight = FontWeight.SemiBold,
-                    color = DarkTextColor,
+                    color = DarkText,
                     fontSize = 14.sp
                 )
                 Row(verticalAlignment = Alignment.CenterVertically) {

@@ -16,7 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Star
@@ -37,13 +37,9 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.akn.techstore.DarkTextColor
-
 import com.akn.techstore.R
-import com.akn.techstore.project.model.data.Product
-import com.akn.techstore.project.model.repository.ProductRepository
+import com.akn.techstore.project.theme.*
 import com.akn.techstore.project.viewModel.ProductDetailViewModel
 
 @Composable
@@ -71,14 +67,14 @@ fun DetailScreen(
         ) {
 
             IconButton(onClick = onBack) {
-                Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = DarkTextColor)
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = DarkText)
             }
 
             Text(
                 text = "Details",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
-                color = DarkTextColor
+                color = DarkText
             )
 
             IconButton(onClick = {}) {
@@ -99,7 +95,6 @@ fun DetailScreen(
                 contentPadding = PaddingValues(top = 16.dp, bottom = 16.dp)
             ) {
 
-                // 1. Image du Produit (Haut de l'écran)
                 item {
                     Box(
                         modifier = Modifier
@@ -118,13 +113,11 @@ fun DetailScreen(
                                 .padding(8.dp),
                             contentAlignment = Alignment.Center
                         ) {
-                            // Placeholder d'image agrandi
                             Text("PRODUCT IMAGE", fontSize = 28.sp, color = Color.White)
                         }
                     }
                 }
 
-                // 2. Infos principales et Couleur
                 item {
                     Column(
                         modifier = Modifier
@@ -134,7 +127,6 @@ fun DetailScreen(
                             .background(Color.White)
                             .padding(10.dp)
                     ) {
-                        // Nom et Rating
                         Row(
                             modifier = Modifier.fillMaxWidth().padding(10.dp),
                             horizontalArrangement = Arrangement.SpaceBetween
@@ -143,7 +135,7 @@ fun DetailScreen(
                                 product.name,
                                 fontSize = 28.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = DarkTextColor,
+                                color = DarkText,
                                 modifier = Modifier.weight(1f)
                             )
                             Icon(
@@ -154,7 +146,6 @@ fun DetailScreen(
                             )
                         }
                         Spacer(Modifier.height(8.dp))
-                        // Rating
                         Row(
                             modifier = Modifier.fillMaxWidth().padding(10.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -168,7 +159,7 @@ fun DetailScreen(
                             Text(
                                 product.rating.toString(),
                                 fontSize = 16.sp,
-                                color = DarkTextColor,
+                                color = DarkText,
                                 fontWeight = FontWeight.Medium
                             )
                             Spacer(Modifier.width(4.dp))
@@ -183,12 +174,12 @@ fun DetailScreen(
                             modifier = Modifier.fillMaxWidth().padding(10.dp),
                         )
                         Spacer(Modifier.height(8.dp))
-                        // Prix
+
                         Text(
                             text = "$${product.price}",
                             fontSize = 22.sp,
                             fontWeight = FontWeight.Bold,
-                            color = DarkTextColor,
+                            color = DarkText,
                             modifier = Modifier.fillMaxWidth().padding(10.dp),
                         )
                     }
@@ -203,10 +194,8 @@ fun DetailScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-                // Bouton Ajouter au panier
                 Button(
                     onClick = {
-                        // Logique pour ajouter au panier
                         println("${product.name} added to cart.")
                     },
                     colors = ButtonDefaults.buttonColors(colorResource(id = R.color.green)),

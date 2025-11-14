@@ -34,9 +34,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.akn.techstore.DarkTextColor
 import com.akn.techstore.R
-import com.akn.techstore.project.model.data.Product
 import com.akn.techstore.project.viewModel.ProductListViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -45,6 +43,7 @@ import com.akn.techstore.project.components.ClearanceSaleCard
 import com.akn.techstore.project.components.ProductCard
 import com.akn.techstore.project.components.ProductCardSkeleton
 import com.akn.techstore.project.navigation.Routes
+import com.akn.techstore.project.theme.*
 import kotlin.collections.chunked
 
 val mockCategories = listOf(
@@ -78,7 +77,7 @@ fun DiscoverScreen(
                 text = "Discover",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
-                color = DarkTextColor,
+                color = DarkText,
                 modifier = Modifier
                     .padding(bottom = 16.dp)
                     .padding(top = 16.dp)
@@ -97,7 +96,6 @@ fun DiscoverScreen(
         ) {
 
                 item {
-                    // 2. Champ de recherche
                     OutlinedTextField(
                         value = searchQuery,
                         onValueChange = { searchQuery = it },
@@ -146,13 +144,12 @@ fun DiscoverScreen(
                         }
                     }
                 } else if (state.error != null) {
-                    // Affichage de l'erreur
                     item {
                         Text("ERREUR: ${state.error}", color = Color.Red, modifier = Modifier.padding(16.dp))
                     }
                 } else {
 
-                    // 1. Découper la liste des produits en lots de 2
+                    // Découpage de la liste des produits en lots de 2
                     val productRows = state.products.chunked(2)
 
                     // Liste de produits en grille 2xN

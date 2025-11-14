@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,27 +16,30 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.akn.techstore.DarkTextColor
 import com.akn.techstore.R
+import com.akn.techstore.project.theme.DarkText
 
 @Composable
 fun CategoryItem(category: String) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .clickable {}
+            .clip(RoundedCornerShape(25.dp))
     ) {
         Box(
             modifier = Modifier
                 .height(30.dp)
+                .fillMaxWidth()
                 .clip(RoundedCornerShape(25.dp))
                 .background(colorResource(id = R.color.white))
-                .padding(horizontal = 16.dp)
-                .clickable { /* Filtre par catégorie */ },
+                .padding(horizontal = 16.dp),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = category,
                 fontSize = 12.sp,
-                color = DarkTextColor,
+                color = DarkText,
             )
         }
     }

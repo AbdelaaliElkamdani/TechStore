@@ -22,10 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.akn.techstore.DarkText
-import com.akn.techstore.GrayBorder
-import com.akn.techstore.PrimaryGreen
-import com.akn.techstore.SoftCardBackground
+import com.akn.techstore.project.theme.*
 
 @Composable
 fun ProfileHeader(name: String, email: String, imageUrl: String) {
@@ -34,18 +31,16 @@ fun ProfileHeader(name: String, email: String, imageUrl: String) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(contentAlignment = Alignment.BottomEnd) {
-            // Image de profil
             Box(
                 modifier = Modifier
                     .size(100.dp)
                     .clip(CircleShape)
-                    .background(Color(0xFFE0E0E0)) // Couleur de fond du placeholder
+                    .background(Color(0xFFE0E0E0))
                     .border(1.dp, GrayBorder, CircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 Text(name.first().toString(), fontSize = 40.sp, color = Color.Gray)
             }
-            // Bouton de caméra (Modification)
             Box(
                 modifier = Modifier
                     .clip(CircleShape)

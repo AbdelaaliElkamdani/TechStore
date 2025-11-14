@@ -33,8 +33,6 @@ class LoginViewModel(
     private val _state = MutableStateFlow(LoginState())
     val state: StateFlow<LoginState> = _state
 
-
-    // Fonction pour mettre à jour les champs de texte (appelée par l'UI)
     fun onEmailChange(newEmail: String) {
         _state.update { it.copy(email = newEmail, error = null) }
     }
@@ -64,7 +62,6 @@ class LoginViewModel(
                     _state.update { it.copy(isLoading = false, error = "Identifiants incorrects.") }
                 }
             } catch (e: Exception) {
-                // Appel API échoué
                 _state.update { it.copy(isLoading = false, error = "Erreur de connexion.") }
             }
         }
@@ -104,7 +101,6 @@ class SignUpViewModel(
             }
             return
         }
-        // Validation n°1 : Vérification si les mots de passe correspondent
         if (currentState.password != currentState.confirmPassword) {
             _state.update {
                 it.copy(error = "Les mots de passe ne correspondent pas.")
@@ -112,7 +108,6 @@ class SignUpViewModel(
             return
         }
 
-        // 2. Lancement de la Coroutine pour l'appel API
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true, error = null) }
             try {

@@ -16,9 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.akn.techstore.SkeletonColor
-import com.akn.techstore.SkeletonHighlight
-import com.akn.techstore.TransparentGray
+import com.akn.techstore.project.theme.*
 
 @Composable
 fun ProfileHeaderSkeleton(modifier: Modifier = Modifier) {
@@ -28,21 +26,18 @@ fun ProfileHeaderSkeleton(modifier: Modifier = Modifier) {
     ) {
         Box(contentAlignment = Alignment.BottomEnd) {
 
-            // 1. Squelette de l'Image de profil (Cercle)
             Box(
                 modifier = Modifier
                     .size(100.dp)
                     .clip(CircleShape)
-                    .background(SkeletonColor) // Bloc de couleur pour l'image
-                    // La bordure peut être omise ou mise dans la couleur du squelette si elle doit charger aussi
+                    .background(SkeletonColor)
                     .border(1.dp, TransparentGray, CircleShape)
             )
 
-            // 2. Squelette du Bouton de caméra (Cercle)
             Box(
                 modifier = Modifier
                     .clip(CircleShape)
-                    .background(SkeletonHighlight) // Bloc de couleur pour le bouton
+                    .background(SkeletonHighlight)
                     .size(30.dp)
                     .border(2.dp, TransparentGray, CircleShape)
             )
@@ -50,22 +45,20 @@ fun ProfileHeaderSkeleton(modifier: Modifier = Modifier) {
 
         Spacer(Modifier.height(8.dp))
 
-        // 3. Squelette du Nom d'utilisateur (Ligne de texte longue)
         Box(
             modifier = Modifier
-                .width(120.dp) // Largeur du nom simulé
-                .height(20.dp) // Hauteur de la ligne de texte
+                .width(120.dp)
+                .height(20.dp)
                 .clip(RoundedCornerShape(4.dp))
                 .background(SkeletonColor)
         )
 
-        Spacer(Modifier.height(4.dp)) // Espace entre le nom et l'email
+        Spacer(Modifier.height(4.dp))
 
-        // 4. Squelette de l'Email (Ligne de texte courte)
         Box(
             modifier = Modifier
-                .width(90.dp) // Largeur de l'email simulé
-                .height(14.dp) // Hauteur de la ligne de texte
+                .width(90.dp)
+                .height(14.dp)
                 .clip(RoundedCornerShape(4.dp))
                 .background(SkeletonColor)
         )

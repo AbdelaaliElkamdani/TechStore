@@ -34,10 +34,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.akn.techstore.DarkText
-import com.akn.techstore.ErrorRed
-import com.akn.techstore.GrayBorder
 import com.akn.techstore.project.navigation.Routes
+import com.akn.techstore.project.theme.*
 import kotlin.Unit
 
 data class Option(
@@ -49,7 +47,7 @@ data class Option(
 )
 
 @Composable
-fun OptionsList(navController: NavController) {
+fun OptionsList(navController: NavController, onLogout: () -> Unit) {
     val options = listOf(
         Option(
             icon = Icons.Default.Edit,
@@ -80,7 +78,7 @@ fun OptionsList(navController: NavController) {
             title = "Logout",
             iconColor = ErrorRed,
             titleColor = ErrorRed,
-            onClick = { /* Action de Déconnexion */ }
+            onClick = { onLogout() }
         )
     )
 

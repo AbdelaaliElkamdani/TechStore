@@ -23,17 +23,13 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.akn.techstore.DarkTextColor
 import com.akn.techstore.R
 import com.akn.techstore.project.components.ProductCard
 import com.akn.techstore.project.components.ProductCardSkeleton
-import com.akn.techstore.project.model.data.Product
-import com.akn.techstore.project.model.repository.ProductRepository
 import com.akn.techstore.project.navigation.Routes
-import com.akn.techstore.project.viewModel.ProductDetailViewModel
+import com.akn.techstore.project.theme.DarkText
 import com.akn.techstore.project.viewModel.ProductListViewModel
 import kotlin.collections.chunked
 
@@ -60,7 +56,7 @@ fun FavouritesScreen(
                 text = "Favourites",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
-                color = DarkTextColor,
+                color = DarkText,
                 modifier = Modifier
                     .padding(bottom = 16.dp)
                     .padding(top = 16.dp)
@@ -91,7 +87,6 @@ fun FavouritesScreen(
                     }
                 }
             } else if (state.error != null) {
-                // Affichage de l'erreur
                 item {
                     Text(
                         "ERREUR: ${state.error}",

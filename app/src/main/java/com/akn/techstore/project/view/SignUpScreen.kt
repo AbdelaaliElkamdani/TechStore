@@ -32,21 +32,22 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.akn.techstore.R
-import com.akn.techstore.project.navigation.AuthScreen
+import com.akn.techstore.project.navigation.Routes
 import com.akn.techstore.project.viewModel.SignUpViewModel
 
 @Composable
 fun SignUpScreen(
-    navigateTo: (AuthScreen) -> Unit,
-    onAuthSuccess: () -> Unit,
+    navController: NavController,
+    onSignUpSuccess: () -> Unit,
     viewModel: SignUpViewModel = viewModel()
 ) {
     val state by viewModel.state.collectAsState()
-    // 2. Gestion de la Navigation (Effet Secondaire)
+
     LaunchedEffect(state.isSingUpSuccessful) {
         if (state.isSingUpSuccessful) {
-            onAuthSuccess()
+            onSignUpSuccess()
         }
     }
 
@@ -57,7 +58,6 @@ fun SignUpScreen(
             .padding(horizontal = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Titre de l'écran
         Text(
             text = "Sign Up",
             color = colorResource(id = R.color.black),
@@ -66,7 +66,6 @@ fun SignUpScreen(
             modifier = Modifier.padding(top = 80.dp, bottom = 40.dp)
         )
 
-        // Champ Nom
         OutlinedTextField(
             value = state.name,
             onValueChange = viewModel::onNameChange,
@@ -80,7 +79,6 @@ fun SignUpScreen(
         )
         Spacer(Modifier.height(20.dp))
 
-        // Champ Email
         OutlinedTextField(
             value = state.email,
             onValueChange = viewModel::onEmailChange,
@@ -95,7 +93,6 @@ fun SignUpScreen(
         )
         Spacer(Modifier.height(20.dp))
 
-        // Champ Mot de passe
         OutlinedTextField(
             value = state.password,
             onValueChange = viewModel::onPasswordChange,
@@ -111,7 +108,6 @@ fun SignUpScreen(
         )
         Spacer(Modifier.height(20.dp))
 
-        // Champ Confirmer mot de passe
         OutlinedTextField(
             value = state.confirmPassword,
             onValueChange = viewModel::onConfirmPasswordChange,
@@ -125,7 +121,7 @@ fun SignUpScreen(
             ),
             modifier = Modifier.fillMaxWidth()
         )
-        // Affichage de l'erreur
+
         state.error?.let { error ->
             Spacer(Modifier.height(8.dp))
             Text(
@@ -138,7 +134,6 @@ fun SignUpScreen(
 
         Spacer(Modifier.height(32.dp))
 
-        // Bouton Sign up
         Button(
             onClick = viewModel::signUp,
             enabled = !state.isLoading,
@@ -154,9 +149,8 @@ fun SignUpScreen(
                 Text(text = "Sign up", fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
             }
         }
-        Spacer(Modifier.weight(1f)) // Pousse le texte en bas
+        Spacer(Modifier.weight(1f))
 
-        // Lien "Already have an account ? Login"
         Row(
             modifier = Modifier.padding(bottom = 32.dp),
             verticalAlignment = Alignment.CenterVertically
@@ -167,7 +161,7 @@ fun SignUpScreen(
                 color = colorResource(id = R.color.green),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.clickable { navigateTo(AuthScreen.LOGIN) }
+                modifier = Modifier.clickable { navController.navigate(Routes.Login.route) }
             )
         }
     }

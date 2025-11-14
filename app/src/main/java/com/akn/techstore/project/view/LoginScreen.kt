@@ -32,14 +32,15 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.akn.techstore.R
-import com.akn.techstore.project.navigation.AuthScreen
+import com.akn.techstore.project.navigation.Routes
 import com.akn.techstore.project.viewModel.LoginViewModel
 
 @Composable
 fun LoginScreen(
-    navigateTo: (AuthScreen) -> Unit,
-    onAuthSuccess: () -> Unit,
+    navController: NavController,
+    onLoginSuccess: () -> Unit,
     viewModel: LoginViewModel = viewModel()
 ) {
 
@@ -47,7 +48,7 @@ fun LoginScreen(
 
     LaunchedEffect(state.isLoginSuccessful) {
         if (state.isLoginSuccessful) {
-            onAuthSuccess()
+            onLoginSuccess()
         }
     }
 
@@ -58,7 +59,6 @@ fun LoginScreen(
             .padding(horizontal = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Titre de l'écran
         Text(
             text = "Log In",
             color = colorResource(id = R.color.black),
@@ -67,7 +67,6 @@ fun LoginScreen(
             modifier = Modifier.padding(top = 80.dp, bottom = 40.dp)
         )
 
-        // Champ Email
         OutlinedTextField(
             value = state.email,
             onValueChange = viewModel::onEmailChange,
@@ -82,7 +81,6 @@ fun LoginScreen(
         )
         Spacer(Modifier.height(20.dp))
 
-        // Champ Mot de passe
         OutlinedTextField(
             value = state.password,
             onValueChange = viewModel::onPasswordChange,
@@ -98,17 +96,15 @@ fun LoginScreen(
         )
         Spacer(Modifier.height(8.dp))
 
-        // Lien "Forgot Password ?"
         Text(
             text = "Forgot password ?",
             color = colorResource(id = R.color.green),
             fontSize = 14.sp,
             modifier = Modifier
                 .align(Alignment.Start)
-                .clickable { /* Logique pour mot de passe oublié */ }
+                .clickable {}
         )
 
-        // Affichage de l'erreur
         state.error?.let { error ->
             Spacer(Modifier.height(8.dp))
             Text(
@@ -121,7 +117,6 @@ fun LoginScreen(
 
         Spacer(Modifier.height(32.dp))
 
-        // Bouton Login
         Button(
             onClick = viewModel::login,
             enabled = !state.isLoading,
@@ -137,9 +132,8 @@ fun LoginScreen(
                 Text(text = "Login", fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
             }
         }
-        Spacer(Modifier.weight(1f)) // Pousse le texte en bas
+        Spacer(Modifier.weight(1f))
 
-        // Lien "Don't have an account ?"
         Row(
             modifier = Modifier.padding(bottom = 32.dp),
             verticalAlignment = Alignment.CenterVertically
@@ -150,7 +144,7 @@ fun LoginScreen(
                 color = colorResource(id = R.color.green),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.clickable { navigateTo(AuthScreen.SIGNUP) }
+                modifier = Modifier.clickable { navController.navigate(Routes.Register.route) }
             )
         }
     }

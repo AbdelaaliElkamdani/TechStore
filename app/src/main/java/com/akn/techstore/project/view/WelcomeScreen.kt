@@ -23,18 +23,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.akn.techstore.R
-import com.akn.techstore.project.navigation.AuthScreen
+import com.akn.techstore.project.theme.PrimaryColor
 
 @Composable
-fun WelcomeScreen(navigateTo: (AuthScreen) -> Unit) {
+fun WelcomeScreen(onGetStarted: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(colorResource(id = R.color.green)),
+            .background(PrimaryColor),
         horizontalAlignment = Alignment.CenterHorizontally
-
     ) {
-        // En-tête (Logo et nom de la marque)
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -43,20 +41,17 @@ fun WelcomeScreen(navigateTo: (AuthScreen) -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // Placeholder du Logo (Remplacez ceci par votre Image réelle)
             Image(
-                painter = painterResource(id = R.drawable.splashscreen_logo), // Assurez-vous que votre logo est dans le dossier 'drawable'
+                painter = painterResource(id = R.drawable.splashscreen_logo),
                 contentDescription = "Logo TechStore",
                 modifier = Modifier
                     .size(395.dp)
             )
         }
-
-        // Partie inférieure blanche
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f) // Prend le reste de l'espace
+                .weight(1f)
                 .background(Color.White, RoundedCornerShape(topStart = 60.dp, topEnd = 60.dp))
                 .padding(40.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -84,10 +79,8 @@ fun WelcomeScreen(navigateTo: (AuthScreen) -> Unit) {
                 fontSize = 16.sp,
                 modifier = Modifier.padding(bottom = 32.dp)
             )
-
-            // Bouton "Get Started"
             Button(
-                onClick = { navigateTo(AuthScreen.LOGIN) }, // On va à l'écran de Login
+                onClick = { onGetStarted() },
                 colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.green)),
                 shape = RoundedCornerShape(12.dp),
                 modifier = Modifier

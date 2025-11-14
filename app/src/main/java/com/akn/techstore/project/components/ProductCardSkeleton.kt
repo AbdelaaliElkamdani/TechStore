@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.akn.techstore.SkeletonColor
+import com.akn.techstore.project.theme.SkeletonColor
 
 
 @Composable
@@ -35,7 +35,6 @@ fun ProductCardSkeleton(modifier: Modifier = Modifier) {
             Box (
                 modifier = Modifier.fillMaxWidth()
             ) {
-                // Squelette pour l'image (doit correspondre à la taille de l'image réelle)
                 Box(
                     modifier = Modifier
                         .height(140.dp)
@@ -43,34 +42,30 @@ fun ProductCardSkeleton(modifier: Modifier = Modifier) {
                         .clip(RoundedCornerShape(8.dp))
                         .background(SkeletonColor)
                 )
-
-                // Squelette pour le bouton J'aime (Heart) - petite forme ronde
                 Box(
                     modifier = Modifier
                         .size(30.dp)
                         .padding(top = 8.dp, end = 8.dp)
                         .align(Alignment.TopEnd)
-                        .clip(CircleShape) // Utiliser une forme ronde
+                        .clip(CircleShape)
                         .background(SkeletonColor)
                 )
             }
 
             Spacer(Modifier.height(8.dp))
 
-            // Squelette pour le nom du produit (texte long)
             Box(
                 modifier = Modifier
-                    .width(100.dp) // Largeur du bloc de texte simulé
-                    .height(14.dp) // Hauteur de la ligne de texte
+                    .width(100.dp)
+                    .height(14.dp)
                     .clip(RoundedCornerShape(4.dp))
                     .background(SkeletonColor)
             )
 
             Spacer(Modifier.height(4.dp))
 
-            // Squelette pour l'évaluation (rating) et le nombre de commentaires
             Row(verticalAlignment = Alignment.CenterVertically) {
-                // Squelette pour l'étoile
+
                 Box(
                     modifier = Modifier
                         .size(16.dp)
@@ -78,7 +73,7 @@ fun ProductCardSkeleton(modifier: Modifier = Modifier) {
                         .background(SkeletonColor)
                 )
                 Spacer(Modifier.width(4.dp))
-                // Squelette pour le texte de l'évaluation
+
                 Box(
                     modifier = Modifier
                         .width(20.dp)
@@ -87,7 +82,6 @@ fun ProductCardSkeleton(modifier: Modifier = Modifier) {
                         .background(SkeletonColor)
                 )
                 Spacer(Modifier.width(8.dp))
-                // Squelette pour le nombre de commentaires
                 Box(
                     modifier = Modifier
                         .width(40.dp)
@@ -99,11 +93,10 @@ fun ProductCardSkeleton(modifier: Modifier = Modifier) {
 
             Spacer(Modifier.height(4.dp))
 
-            // Squelette pour le prix (texte gras)
             Box(
                 modifier = Modifier
-                    .width(40.dp) // Largeur du prix simulé
-                    .height(16.dp) // Hauteur de la ligne de texte
+                    .width(40.dp)
+                    .height(16.dp)
                     .clip(RoundedCornerShape(4.dp))
                     .background(SkeletonColor)
             )

@@ -9,15 +9,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
-import com.akn.techstore.DarkTextColor
+import com.akn.techstore.project.theme.DarkText
 
-// --- Écran de remplacement temporaire ---
 @Composable
 fun PlaceholderScreen(name: String) {
     Box(
         modifier = Modifier.fillMaxSize().background(Color.White),
         contentAlignment = Alignment.Center
     ) {
-        Text("Welcome to the $name", fontSize = 24.sp, color = DarkTextColor)
+        Text("Welcome to the $name", fontSize = 24.sp, color = DarkText)
     }
 }

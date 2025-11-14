@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.akn.techstore.PrimaryColor
 import com.akn.techstore.project.navigation.MainScreen
+import com.akn.techstore.project.theme.PrimaryColor
 
 @Composable
 fun BottomNavigationBar(

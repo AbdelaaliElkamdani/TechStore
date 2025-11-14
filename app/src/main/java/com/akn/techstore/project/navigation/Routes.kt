@@ -14,5 +14,4 @@ sealed class Routes(val route : String) {
     object Setting : Routes("settings")
     object Login : Routes("login")
     object Register : Routes("register")
-    object Welcome : Routes("welcome")
 }

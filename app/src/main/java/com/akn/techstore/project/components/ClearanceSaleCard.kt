@@ -26,8 +26,8 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.akn.techstore.PrimaryColor
 import com.akn.techstore.R
+import com.akn.techstore.project.theme.PrimaryColor
 
 @Composable
 fun ClearanceSaleCard(modifier: Modifier = Modifier) {
@@ -47,7 +47,7 @@ fun ClearanceSaleCard(modifier: Modifier = Modifier) {
                 Text("Clearance Sales", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 Text("Up to 50% off", color = Color.White, fontSize = 14.sp, modifier = Modifier.padding(vertical = 4.dp))
                 Button(
-                    onClick = { /* Naviguer vers les soldes */ },
+                    onClick = {  },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                     shape = RoundedCornerShape(8.dp),
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 6.dp)
@@ -55,12 +55,11 @@ fun ClearanceSaleCard(modifier: Modifier = Modifier) {
                     Text("Shop now", color = PrimaryColor, fontSize = 14.sp)
                 }
             }
-            // Image Placeholder - Remplacement de PhoneIphone par Store
             Box(
                 modifier = Modifier
                     .size(80.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(Color(0x80FFFFFF)), // 50% de blanc transparent
+                    .background(Color(0x80FFFFFF)),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(Icons.Default.ShoppingCart, contentDescription = "Sale Icon", tint = colorResource(id = R.color.green), modifier = Modifier.size(50.dp))

@@ -18,14 +18,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.akn.techstore.DarkTextColor
-import com.akn.techstore.LightGrayBackground
 import com.akn.techstore.R
 import com.akn.techstore.project.components.OptionsList
 import com.akn.techstore.project.components.ProfileHeader
+import com.akn.techstore.project.theme.*
 
 @Composable
-fun ProfileScreen(navController: NavController) {
+fun ProfileScreen(
+    navController: NavController,
+    onLogout : () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -41,7 +43,7 @@ fun ProfileScreen(navController: NavController) {
                 text = "Profile",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
-                color = DarkTextColor,
+                color = DarkText,
                 modifier = Modifier
                     .padding(bottom = 16.dp)
                     .padding(top = 16.dp)
@@ -61,7 +63,7 @@ fun ProfileScreen(navController: NavController) {
                 Spacer(Modifier.height(24.dp))
             }
             item {
-                OptionsList(navController)
+                OptionsList(navController,onLogout)
             }
         }
     }

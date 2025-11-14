@@ -14,8 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.akn.techstore.GrayBorder
-import com.akn.techstore.PrimaryGreen
+import com.akn.techstore.project.theme.*
 
 @Composable
 fun QuantityButton(icon: ImageVector, enabled: Boolean = true, onClick: () -> Unit) {

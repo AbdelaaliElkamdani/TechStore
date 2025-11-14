@@ -23,14 +23,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.akn.techstore.DarkTextColor
-import com.akn.techstore.LightGrayBackground
-import com.akn.techstore.PrimaryGreen
 import com.akn.techstore.R
+import com.akn.techstore.project.theme.*
 
 @Composable
 fun EditProfileScreen(navController: NavController) {
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -43,13 +40,13 @@ fun EditProfileScreen(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             IconButton(
-                onClick = { navController.popBackStack() },
+                onClick = { navController.popBackStack()},
                 modifier = Modifier.padding(16.dp)
             ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = DarkTextColor
+                    tint = DarkText
                 )
             }
 
@@ -57,7 +54,7 @@ fun EditProfileScreen(navController: NavController) {
                 text = "Edit Profile",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
-                color = DarkTextColor,
+                color = DarkText,
                 modifier = Modifier
                     .padding(bottom = 16.dp)
                     .padding(top = 16.dp)
@@ -65,7 +62,6 @@ fun EditProfileScreen(navController: NavController) {
             )
         }
 
-        // Liste des articles du panier
         Column(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -73,9 +69,8 @@ fun EditProfileScreen(navController: NavController) {
 
         }
 
-        // Bouton de Checkout (Paiement)
         Button(
-            onClick = { /* Action de paiement */ },
+            onClick = {  },
             colors = ButtonDefaults.buttonColors(containerColor = PrimaryGreen),
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier

@@ -23,18 +23,15 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.akn.techstore.DarkTextColor
-import com.akn.techstore.LightGrayBackground
-import com.akn.techstore.PrimaryGreen
 import com.akn.techstore.R
 import com.akn.techstore.project.components.CartItemRow
 import com.akn.techstore.project.components.PriceSummary
 import com.akn.techstore.project.model.data.Cart
 import com.akn.techstore.project.model.data.Product
+import com.akn.techstore.project.theme.*
 
 @Composable
 fun CartScreen() {
-    // État mutable du panier pour simuler les interactions (ajout/suppression)
     val cartItems = listOf(
         Cart(
             id = 1,
@@ -61,7 +58,6 @@ fun CartScreen() {
 
     val cartItemsState = remember { mutableStateListOf<Cart>().apply { addAll(cartItems) } }
 
-    // Fonction pour mettre à jour la quantité d'un article
     val updateQuantity: (Cart, Int) -> Unit = { item, newQuantity ->
         val index = cartItemsState.indexOfFirst { it.product.id == item.product.id }
         if (index != -1) {
@@ -73,14 +69,12 @@ fun CartScreen() {
         }
     }
 
-    // Calculs de prix
     val subtotal = cartItemsState.sumOf { it.product.price * it.quantity }
     val deliveryFee = 5.00
-    val discountRate = 0.40 // 40%
+    val discountRate = 0.40
     val discount = if (subtotal > 0) subtotal * discountRate else 0.0
     val total = subtotal + deliveryFee - discount
 
-    // En-tête de l'écran (sans la barre de navigation complète)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -96,7 +90,7 @@ fun CartScreen() {
                 text = "My Cart",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
-                color = DarkTextColor,
+                color = DarkText,
                 modifier = Modifier
                     .padding(bottom = 16.dp)
                     .padding(top = 16.dp)
@@ -104,7 +98,6 @@ fun CartScreen() {
             )
         }
 
-        // Liste des articles du panier
         LazyColumn(
             modifier = Modifier.weight(1f),
             contentPadding = PaddingValues(16.dp),
@@ -118,15 +111,13 @@ fun CartScreen() {
                 )
             }
 
-            // Section Récapitulatif
             item {
                 PriceSummary(subtotal, deliveryFee, discount, total)
             }
         }
 
-        // Bouton de Checkout (Paiement)
         Button(
-            onClick = { /* Action de paiement */ },
+            onClick = {  },
             colors = ButtonDefaults.buttonColors(containerColor = PrimaryGreen),
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier

@@ -28,9 +28,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.akn.techstore.DarkText
-import com.akn.techstore.PrimaryGreen
 import com.akn.techstore.project.model.data.Cart
+import com.akn.techstore.project.theme.*
 
 @Composable
 fun CartItemRow(

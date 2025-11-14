@@ -19,10 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.akn.techstore.DarkText
-import com.akn.techstore.ErrorRed
-import com.akn.techstore.GrayBorder
-import com.akn.techstore.PrimaryGreen
+import com.akn.techstore.project.theme.*
 
 
 @Composable
