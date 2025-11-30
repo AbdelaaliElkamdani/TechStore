@@ -1,10 +1,12 @@
 package com.akn.techstore.project.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,8 +25,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.akn.techstore.R
@@ -51,7 +56,13 @@ fun ProductCard(product: Product, modifier: Modifier = Modifier) {
                             .background(Color(0xFFE0E0E0))
 
                     ) {
-                        Text("IMG", modifier = Modifier.align(Alignment.Center), color = Color.Gray)
+                        Image(
+                            painter = painterResource(id = product.imageResId),
+                            contentDescription = " Product Image ",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .fillMaxSize()
+                        )
                     }
 
                     Icon(
@@ -69,6 +80,8 @@ fun ProductCard(product: Product, modifier: Modifier = Modifier) {
                     product.name,
                     fontWeight = FontWeight.SemiBold,
                     color = DarkText,
+                    maxLines = 1,
+                    overflow = TextOverflow.Clip,
                     fontSize = 14.sp
                 )
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -84,7 +97,7 @@ fun ProductCard(product: Product, modifier: Modifier = Modifier) {
                 }
                 Spacer(Modifier.height(4.dp))
                 Text(
-                    "$${product.price}",
+                    "${product.price}Dh",
                     fontWeight = FontWeight.Bold,
                     color = colorResource(id = R.color.green),
                     fontSize = 16.sp

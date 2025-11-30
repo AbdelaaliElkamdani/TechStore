@@ -1,5 +1,6 @@
 package com.akn.techstore.project.model.data
 
+import androidx.annotation.DrawableRes
 import kotlin.String
 
 data class Product(
@@ -10,6 +11,6 @@ data class Product(
     val description: String = "",
     val category: String = "",
     val color: String = "Blue",
-    val imageUrl: String = "https://placehold.co/80x80/288D2A/FFFFFF?text=IMG",
+    @DrawableRes val imageResId: Int,
     val isNew: Boolean = false
 )

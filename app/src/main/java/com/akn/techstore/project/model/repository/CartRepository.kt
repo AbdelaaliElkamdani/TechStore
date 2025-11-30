@@ -8,28 +8,6 @@ class CartRepository {
 
     suspend fun getCartProducts(): List<Cart> {
         delay(2000)
-        return listOf(
-            Cart(
-                id = 1,
-                Product(1, "Xbox Series X", 570.00),
-                1,
-                createdAt = "",
-                userId = 1
-            ),
-            Cart(
-                id = 2,
-                Product(2, "Wireless Controller", 77.00, color = "Blue"),
-                1,
-                createdAt = "",
-                userId = 1
-            ),
-            Cart(
-                id = 3,
-                Product(3, "Razer Kaira Pro", 153.00, color = "Green"),
-                1,
-                createdAt = "",
-                userId = 1
-            ),
-        )
+        return listOf(Cart(1, 101), Cart(2, 102), Cart(3, 103))
     }
 }

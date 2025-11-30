@@ -1,5 +1,6 @@
 package com.akn.techstore.project.view
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,7 +34,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -108,12 +111,16 @@ fun DetailScreen(
                     ) {
                         Box(
                             modifier = Modifier
-                                .fillMaxSize()
-                                .background(Color.Gray)
-                                .padding(8.dp),
+                                .fillMaxSize(),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text("PRODUCT IMAGE", fontSize = 28.sp, color = Color.White)
+                            Image(
+                                painter = painterResource(id = product.imageResId),
+                                contentDescription = " Product Image ",
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .fillMaxSize()
+                            )
                         }
                     }
                 }
@@ -167,7 +174,7 @@ fun DetailScreen(
                         }
                         Spacer(Modifier.height(8.dp))
                         Text(
-                            "This is the detailed description for the ${product.name}. It features a high-resolution display, long-lasting battery life, and the latest chipset for unparalleled performance. Ideal for gaming and professional use. Don't miss out on this cutting-edge technology!",
+                            text = product.description,
                             fontSize = 14.sp,
                             color = Color.DarkGray,
                             lineHeight = 20.sp,
@@ -176,7 +183,7 @@ fun DetailScreen(
                         Spacer(Modifier.height(8.dp))
 
                         Text(
-                            text = "$${product.price}",
+                            text = "${product.price}Dh",
                             fontSize = 22.sp,
                             fontWeight = FontWeight.Bold,
                             color = DarkText,
@@ -195,9 +202,7 @@ fun DetailScreen(
                 horizontalArrangement = Arrangement.Center
             ) {
                 Button(
-                    onClick = {
-                        println("${product.name} added to cart.")
-                    },
+                    onClick = {},
                     colors = ButtonDefaults.buttonColors(colorResource(id = R.color.green)),
                     shape = RoundedCornerShape(12.dp),
                     modifier = Modifier

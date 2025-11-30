@@ -1,7 +1,11 @@
 package com.akn.techstore.project.model.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "favourite_table")
 data class Favourite(
-    val productId: Int,
-    val userId: Int,
-    val createdAt: String
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val productId: Int
 )

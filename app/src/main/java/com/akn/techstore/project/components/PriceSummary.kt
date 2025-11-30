@@ -37,7 +37,7 @@ fun SummaryRow(label: String, amount: Double, color: Color, isTotal: Boolean = f
             fontWeight = if (isTotal) FontWeight.Bold else FontWeight.Normal
         )
         Text(
-            (if (amount >= 0) "$" else "-$") + "%.2f".format(kotlin.math.abs(amount)),
+            (if (amount >= 0) "" else "-") + "%.2f".format(kotlin.math.abs(amount))+" Dh",
             color = color,
             fontSize = if (isTotal) 19.sp else 15.sp,
             fontWeight = if (isTotal) FontWeight.ExtraBold else FontWeight.SemiBold

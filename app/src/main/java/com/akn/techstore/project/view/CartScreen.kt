@@ -26,54 +26,54 @@ import androidx.compose.ui.unit.sp
 import com.akn.techstore.R
 import com.akn.techstore.project.components.CartItemRow
 import com.akn.techstore.project.components.PriceSummary
+import com.akn.techstore.project.localData.products
 import com.akn.techstore.project.model.data.Cart
 import com.akn.techstore.project.model.data.Product
 import com.akn.techstore.project.theme.*
 
+
+data class CartWithProduct(
+    val cart: Cart,
+    val product: Product
+)
+
 @Composable
 fun CartScreen() {
-    val cartItems = listOf(
-        Cart(
-            id = 1,
-            Product(1, "Xbox Series X", 570.00),
-            1,
-            createdAt = "",
-            userId = 1
-        ),
-        Cart(
-            id = 2,
-            Product(2, "Wireless Controller", 77.00, color = "Blue"),
-            1,
-            createdAt = "",
-            userId = 1
-        ),
-        Cart(
-            id = 3,
-            Product(3, "Razer Kaira Pro", 153.00, color = "Green"),
-            1,
-            createdAt = "",
-            userId = 1
-        ),
+    val carts = listOf(
+        Cart(id = 1, productId = 102),
+        Cart(id = 2, productId = 301),
+        Cart(id = 3, productId = 402),
     )
 
-    val cartItemsState = remember { mutableStateListOf<Cart>().apply { addAll(cartItems) } }
+    val cartItems: List<CartWithProduct> = carts.mapNotNull { cart ->
+        val product = products.find { it.id == cart.productId }
+        product?.let { CartWithProduct(cart, product) }
+    }
 
-    val updateQuantity: (Cart, Int) -> Unit = { item, newQuantity ->
-        val index = cartItemsState.indexOfFirst { it.product.id == item.product.id }
+    val cartItemsState = remember { mutableStateListOf<CartWithProduct>().apply { addAll(cartItems) } }
+
+    val updateQuantity: (CartWithProduct, Int) -> Unit = { item, newQuantity ->
+        val index = cartItemsState.indexOfFirst { it.cart.id == item.cart.id }
+
         if (index != -1) {
             if (newQuantity <= 0) {
                 cartItemsState.removeAt(index)
             } else {
-                cartItemsState[index] = item.copy(quantity = newQuantity)
+                val updatedCart = item.cart.copy(quantity = newQuantity)
+                cartItemsState[index] = item.copy(cart = updatedCart)
             }
         }
     }
 
-    val subtotal = cartItemsState.sumOf { it.product.price * it.quantity }
+    val subtotal = cartItemsState.sumOf { it.product.price * it.cart.quantity }
+
     val deliveryFee = 5.00
     val discountRate = 0.40
     val discount = if (subtotal > 0) subtotal * discountRate else 0.0
+
     val total = subtotal + deliveryFee - discount
+
+
 
     Column(
         modifier = Modifier
@@ -103,7 +103,7 @@ fun CartScreen() {
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(cartItemsState, key = { it.product.id }) { item ->
+            items(cartItemsState, key = { it.cart.id }) { item ->
                 CartItemRow(
                     item = item,
                     onQuantityChange = { newQty -> updateQuantity(item, newQty) },
@@ -126,7 +126,7 @@ fun CartScreen() {
                 .height(56.dp)
         ) {
             Text(
-                text = "Checkout for $${"%.2f".format(total)}",
+                text = "Checkout for ${"%.2f".format(total)} Dh",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold
             )
