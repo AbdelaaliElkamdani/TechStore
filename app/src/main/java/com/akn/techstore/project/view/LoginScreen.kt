@@ -20,8 +20,8 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,19 +32,18 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import com.akn.techstore.R
-import com.akn.techstore.project.navigation.Routes
+import com.akn.techstore.project.viewModel.LoginState
 import com.akn.techstore.project.viewModel.LoginViewModel
 
 @Composable
 fun LoginScreen(
-    navController: NavController,
+    onNavigateToRegister: () -> Unit,
     onLoginSuccess: () -> Unit,
     viewModel: LoginViewModel = viewModel()
 ) {
 
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.observeAsState(LoginState())
 
     LaunchedEffect(state.isLoginSuccessful) {
         if (state.isLoginSuccessful) {
@@ -100,9 +99,7 @@ fun LoginScreen(
             text = "Forgot password ?",
             color = colorResource(id = R.color.green),
             fontSize = 14.sp,
-            modifier = Modifier
-                .align(Alignment.Start)
-                .clickable {}
+            modifier = Modifier.align(Alignment.Start)
         )
 
         state.error?.let { error ->
@@ -144,7 +141,7 @@ fun LoginScreen(
                 color = colorResource(id = R.color.green),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.clickable { navController.navigate(Routes.Register.route) }
+                modifier = Modifier.clickable { onNavigateToRegister() }
             )
         }
     }

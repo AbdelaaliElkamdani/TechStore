@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -20,7 +21,9 @@ import com.akn.techstore.project.view.WelcomeScreen
 import com.akn.techstore.project.viewModel.NavigationViewModel
 
 @Composable
-fun MainNavigation( navigationViewModel: NavigationViewModel = viewModel()) {
+fun MainNavigation(
+    navigationViewModel: NavigationViewModel = viewModel()
+) {
 
     val navController = rememberNavController()
     val currentBackStack by navController.currentBackStackEntryAsState()
@@ -48,7 +51,10 @@ fun MainNavigation( navigationViewModel: NavigationViewModel = viewModel()) {
                     .fillMaxSize()
                     .background(GrayBackground)
             ) {
-               NavigationHost(navController, navigationViewModel)
+                NavigationHost(
+                    navController,
+                    navigationViewModel
+                )
             }
         }
     } else {

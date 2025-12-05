@@ -52,7 +52,6 @@ android {
 }
 
 val room_version = "2.8.4"
-val lifecycle_version = "2.10.0"
 
 dependencies {
 
@@ -65,19 +64,34 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
+    // Navigation & splashscreen
     implementation("androidx.navigation:navigation-compose:2.9.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
 
+    // ViewModel & LiveData
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.3")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.3")
-
     implementation("androidx.compose.runtime:runtime-livedata:1.8.1")
 
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
     implementation("androidx.room:room-paging:$room_version")
-
     ksp("androidx.room:room-compiler:$room_version")
+
+    // Retrofit & Gson
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    // Coil (chargement d’images)
+    implementation("io.coil-kt:coil-compose:2.5.0")
+
+    // Gson (si nécessaire)
+    implementation("com.google.code.gson:gson:2.10.1")
 
 
     implementation(libs.androidx.appcompat)

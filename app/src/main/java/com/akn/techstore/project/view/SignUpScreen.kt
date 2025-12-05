@@ -20,8 +20,8 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,6 +35,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.akn.techstore.R
 import com.akn.techstore.project.navigation.Routes
+import com.akn.techstore.project.viewModel.SignUpState
 import com.akn.techstore.project.viewModel.SignUpViewModel
 
 @Composable
@@ -43,10 +44,10 @@ fun SignUpScreen(
     onSignUpSuccess: () -> Unit,
     viewModel: SignUpViewModel = viewModel()
 ) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.observeAsState(SignUpState())
 
-    LaunchedEffect(state.isSingUpSuccessful) {
-        if (state.isSingUpSuccessful) {
+    LaunchedEffect(state.isSignUpSuccessful) {
+        if (state.isSignUpSuccessful) {
             onSignUpSuccess()
         }
     }

@@ -1,6 +1,8 @@
 package com.akn.techstore.project.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -25,6 +27,7 @@ fun NavigationHost(
     navigationViewModel: NavigationViewModel
 ) {
     val isLoggedIn = navigationViewModel.isLoggedIn
+
     NavHost(
         navController = navController,
         startDestination = if (isLoggedIn) {
@@ -36,7 +39,7 @@ fun NavigationHost(
         composable(Routes.Login.route) {
             navigationViewModel.disableBottomBar()
             LoginScreen(
-                navController = navController,
+                onNavigateToRegister = { navController.navigate(Routes.Register.route) },
                 onLoginSuccess = {
                     navigationViewModel.loggedIn()
                     navController.navigate(Routes.Discover.route) {

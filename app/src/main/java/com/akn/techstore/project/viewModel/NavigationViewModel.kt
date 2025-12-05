@@ -6,8 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
 class NavigationViewModel : ViewModel() {
+
     var isLoggedIn by mutableStateOf(false)
-         private set
+        private set
     var showBottomBar by mutableStateOf(false)
         private set
     var isStarted by mutableStateOf(false)
@@ -16,11 +17,7 @@ class NavigationViewModel : ViewModel() {
     fun enableBottomBar() { showBottomBar = true }
     fun disableBottomBar() { showBottomBar = false }
 
-    fun loggedIn() {
-        isLoggedIn = true
-    }
+    fun loggedIn() { isLoggedIn = true }
     fun loggedOut() { isLoggedIn = false }
-    fun startApp() {
-        isStarted = true
-    }
+    fun startApp() { isStarted = true }
 }
