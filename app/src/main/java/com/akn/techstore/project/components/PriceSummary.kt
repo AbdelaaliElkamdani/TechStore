@@ -37,7 +37,7 @@ fun SummaryRow(label: String, amount: Double, color: Color, isTotal: Boolean = f
             fontWeight = if (isTotal) FontWeight.Bold else FontWeight.Normal
         )
         Text(
-            (if (amount >= 0) "" else "-") + "%.2f".format(kotlin.math.abs(amount))+" Dh",
+            "${"%.2f".format(amount)} Dh",
             color = color,
             fontSize = if (isTotal) 19.sp else 15.sp,
             fontWeight = if (isTotal) FontWeight.ExtraBold else FontWeight.SemiBold
@@ -46,7 +46,7 @@ fun SummaryRow(label: String, amount: Double, color: Color, isTotal: Boolean = f
 }
 
 @Composable
-fun PriceSummary(subtotal: Double, deliveryFee: Double, discount: Double, total: Double) {
+fun PriceSummary(subtotalHT: Double, deliveryFee: Double, VAT: Double, totalTTC: Double) {
     Card(
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
@@ -54,15 +54,15 @@ fun PriceSummary(subtotal: Double, deliveryFee: Double, discount: Double, total:
     ) {
         Column(modifier = Modifier.background(Color.White)) {
             Column(modifier = Modifier.padding(16.dp)) {
-                SummaryRow("Subtotal", subtotal, Color.Black)
+                SummaryRow("Subtotal (HT)", subtotalHT, Color.Black)
                 SummaryRow("Delivery Fee", deliveryFee, Color.Black)
-                SummaryRow("Discount (40%)", -discount, ErrorRed)
+                SummaryRow("TVA (20%)", VAT, ErrorRed)
 
                 Spacer(Modifier.height(12.dp))
                 HorizontalDivider(color = GrayBorder)
                 Spacer(Modifier.height(12.dp))
 
-                SummaryRow("Total", total, PrimaryGreen, isTotal = true)
+                SummaryRow("Total (TTC)", totalTTC, PrimaryGreen, isTotal = true)
             }
         }
     }

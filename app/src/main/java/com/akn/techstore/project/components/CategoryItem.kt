@@ -20,26 +20,26 @@ import com.akn.techstore.R
 import com.akn.techstore.project.theme.DarkText
 
 @Composable
-fun CategoryItem(category: String) {
+fun CategoryItem(category: String, isSelected: Boolean, onCategoryClick: (String) -> Unit) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .clickable {}
+            .clickable { onCategoryClick(category) }
             .clip(RoundedCornerShape(25.dp))
+            .background( if (isSelected) colorResource(id = R.color.green) else colorResource(id = R.color.white))
     ) {
         Box(
             modifier = Modifier
                 .height(30.dp)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(25.dp))
-                .background(colorResource(id = R.color.white))
                 .padding(horizontal = 16.dp),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = category,
                 fontSize = 12.sp,
-                color = DarkText,
+                color = if(!isSelected) DarkText else colorResource(id = R.color.white),
             )
         }
     }

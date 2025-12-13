@@ -9,8 +9,8 @@ data class Cart(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Int = 0,
-    @ColumnInfo(name = "productId")
-    val productId: Int,
-    @ColumnInfo(name = "quantity")
+    val product: Product,
     val quantity: Int = 1,
+    val isConfirmed: Boolean = false,
+    val inCart: Boolean = true
 )

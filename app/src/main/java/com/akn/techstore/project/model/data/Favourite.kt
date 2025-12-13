@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class Favourite(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val productId: Int
+    val isFavourite: Boolean = true,
+    val product: Product
 )

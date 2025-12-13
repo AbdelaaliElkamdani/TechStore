@@ -25,7 +25,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -37,12 +39,13 @@ import com.akn.techstore.R
 import com.akn.techstore.project.navigation.Routes
 import com.akn.techstore.project.viewModel.SignUpState
 import com.akn.techstore.project.viewModel.SignUpViewModel
+import com.akn.techstore.project.viewModelProvider.AuthViewModelProviderFactory
 
 @Composable
 fun SignUpScreen(
     navController: NavController,
     onSignUpSuccess: () -> Unit,
-    viewModel: SignUpViewModel = viewModel()
+    viewModel: SignUpViewModel = viewModel(factory = AuthViewModelProviderFactory(LocalContext.current))
 ) {
     val state by viewModel.state.observeAsState(SignUpState())
 
@@ -60,7 +63,7 @@ fun SignUpScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Sign Up",
+            text = stringResource(R.string.register_title),
             color = colorResource(id = R.color.black),
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,

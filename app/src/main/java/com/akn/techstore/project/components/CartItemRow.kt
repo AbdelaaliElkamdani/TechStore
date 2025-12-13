@@ -1,6 +1,5 @@
 package com.akn.techstore.project.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -28,16 +27,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import com.akn.techstore.project.model.data.Cart
 import com.akn.techstore.project.theme.*
-import com.akn.techstore.project.view.CartWithProduct
 
 @Composable
 fun CartItemRow(
-    item: CartWithProduct,
+    item: Cart,
     onQuantityChange: (Int) -> Unit,
     onRemove: () -> Unit
 ) {
@@ -61,9 +60,9 @@ fun CartItemRow(
                             .clip(RoundedCornerShape(8.dp)),
                         contentAlignment = Alignment.Center
                     ) {
-                        Image(
-                            painter = painterResource(id = item.product.imageResId),
-                            contentDescription = " Product Image ",
+                        AsyncImage(
+                            model = item.product.imageUrl,
+                            contentDescription = "Product Image",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
                                 .fillMaxSize()
@@ -99,12 +98,12 @@ fun CartItemRow(
                 }
 
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 12.dp)) {
-                    QuantityButton(Icons.AutoMirrored.Filled.KeyboardArrowLeft, enabled = item.cart.quantity > 1) {
-                        onQuantityChange(item.cart.quantity - 1)
+                    QuantityButton(Icons.AutoMirrored.Filled.KeyboardArrowLeft, enabled = item.quantity > 1) {
+                        onQuantityChange(item.quantity - 1)
                     }
-                    Text(item.cart.quantity.toString(), fontSize = 16.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(horizontal = 8.dp))
+                    Text(item.quantity.toString(), fontSize = 16.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(horizontal = 8.dp))
                     QuantityButton(Icons.AutoMirrored.Filled.KeyboardArrowRight) {
-                        onQuantityChange(item.cart.quantity + 1)
+                        onQuantityChange(item.quantity + 1)
                     }
 
                 }

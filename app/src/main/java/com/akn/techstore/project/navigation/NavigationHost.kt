@@ -1,8 +1,8 @@
 package com.akn.techstore.project.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -16,6 +16,7 @@ import com.akn.techstore.project.view.DiscoverScreen
 import com.akn.techstore.project.view.EditProfileScreen
 import com.akn.techstore.project.view.FavouritesScreen
 import com.akn.techstore.project.view.LoginScreen
+import com.akn.techstore.project.view.OrderScreen
 import com.akn.techstore.project.view.ProfileScreen
 import com.akn.techstore.project.view.SettingScreen
 import com.akn.techstore.project.view.SignUpScreen
@@ -26,14 +27,16 @@ fun NavigationHost(
     navController: NavHostController,
     navigationViewModel: NavigationViewModel
 ) {
-    val isLoggedIn = navigationViewModel.isLoggedIn
+
+    // Vérification de l'état d'authentification
+    val isLoggedIn by navigationViewModel.isLoggedIn.collectAsState()
 
     NavHost(
         navController = navController,
         startDestination = if (isLoggedIn) {
             Routes.Discover.route
         } else {
-                Routes.Login.route
+            Routes.Login.route
         }
     ) {
         composable(Routes.Login.route) {
@@ -41,7 +44,6 @@ fun NavigationHost(
             LoginScreen(
                 onNavigateToRegister = { navController.navigate(Routes.Register.route) },
                 onLoginSuccess = {
-                    navigationViewModel.loggedIn()
                     navController.navigate(Routes.Discover.route) {
                         popUpTo(0) { inclusive = true }
                     }
@@ -53,7 +55,6 @@ fun NavigationHost(
             SignUpScreen(
                 navController = navController,
                 onSignUpSuccess = {
-                    navigationViewModel.loggedIn()
                     navController.navigate(Routes.Discover.route) {
                         popUpTo(0) { inclusive = true }
                     }
@@ -80,7 +81,7 @@ fun NavigationHost(
             ProfileScreen(
                 navController,
                 onLogout = {
-                    navigationViewModel.loggedOut()
+                    navigationViewModel.logout()
                     navController.navigate(Routes.Login.route) {
                         popUpTo(Routes.Discover.route) { inclusive = true }
                     }
@@ -109,15 +110,19 @@ fun NavigationHost(
         }
         composable(Routes.Password.route) {
             navigationViewModel.disableBottomBar()
-            ChangePasswordScreen()
+            ChangePasswordScreen(onBack = { navController.popBackStack() })
         }
         composable(Routes.Address.route) {
             navigationViewModel.disableBottomBar()
-            AddressScreen()
+            AddressScreen(onBack = { navController.popBackStack() })
         }
         composable(Routes.Setting.route) {
             navigationViewModel.disableBottomBar()
-            SettingScreen()
+            SettingScreen(onBack = { navController.popBackStack() })
+        }
+        composable(Routes.Order.route) {
+            navigationViewModel.disableBottomBar()
+            OrderScreen(onBack = { navController.popBackStack() })
         }
     }
 }

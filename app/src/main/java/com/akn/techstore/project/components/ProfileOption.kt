@@ -18,6 +18,7 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -49,6 +50,12 @@ data class Option(
 @Composable
 fun OptionsList(navController: NavController, onLogout: () -> Unit) {
     val options = listOf(
+        Option(
+            icon = Icons.Default.Menu,
+            title = "My Orders",
+            iconColor = Color.Green,
+            onClick = { navController.navigate(Routes.Order.route) }
+        ),
         Option(
             icon = Icons.Default.Edit,
             title = "Edit Profile",

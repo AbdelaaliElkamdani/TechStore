@@ -14,6 +14,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.akn.techstore.project.navigation.MainScreen
 import com.akn.techstore.project.theme.PrimaryColor
+import com.akn.techstore.project.viewModel.CartViewModel
+import com.akn.techstore.project.viewModel.FavouriteViewModel
 
 @Composable
 fun BottomNavigationBar(

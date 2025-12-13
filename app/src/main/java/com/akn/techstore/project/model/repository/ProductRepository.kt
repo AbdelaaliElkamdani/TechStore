@@ -1,16 +1,17 @@
 package com.akn.techstore.project.model.repository
 
-import com.akn.techstore.project.localData.products
-import com.akn.techstore.project.model.data.Product
-import kotlinx.coroutines.delay
+import com.akn.techstore.project.api.service.ApiInstance
 
 class ProductRepository {
-    suspend fun getProducts(): List<Product> {
-        delay(2000)
-        return products
-    }
 
-    suspend fun getProductById(productId: Int): Product? {
-        return products.find { it.id == productId }
-    }
+    suspend fun getAllProducts() = ApiInstance.retrofitService.getProducts()
+
+    suspend fun getProductsByCategory(category: String) =
+        ApiInstance.retrofitService.getProductsByCategory(category)
+
+    suspend fun getSearchProducts(searchQuery: String) =
+        ApiInstance.retrofitService.getSearchProducts(searchQuery)
+
+    suspend fun getProductById(productId: Int) =
+        ApiInstance.retrofitService.getProductById(productId)
 }

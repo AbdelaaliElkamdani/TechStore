@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -58,7 +59,7 @@ fun WelcomeScreen(onGetStarted: () -> Unit) {
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Welcome",
+                text = stringResource(R.string.welcome_title),
                 color = colorResource(id = R.color.black),
                 fontSize = 60.sp,
                 fontWeight = FontWeight.Bold,
@@ -66,7 +67,7 @@ fun WelcomeScreen(onGetStarted: () -> Unit) {
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             Text(
-                text = "to our store",
+                text = stringResource(R.string.welcome_message_1),
                 color = colorResource(id = R.color.black),
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
@@ -74,7 +75,7 @@ fun WelcomeScreen(onGetStarted: () -> Unit) {
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             Text(
-                text = "Future Tech. Now in your hands",
+                text = stringResource(R.string.welcome_message_2),
                 color = Color.Gray,
                 fontSize = 16.sp,
                 modifier = Modifier.padding(bottom = 32.dp)

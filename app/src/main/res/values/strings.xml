@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">TechStore</string>
+    <string name="detail_title">Details</string>
+    <string name="all">All</string>
+    <string name="smartphones">Smartphones</string>
+    <string name="laptop">Laptop</string>
+    <string name="watch">Watch</string>
+    <string name="headphones">Headphones</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="profile_title">Profile</string>
+    <string name="favourite_title">Favourites</string>
+    <string name="welcome_title">Welcome</string>
+    <string name="welcome_message_1">to our store</string>
+    <string name="welcome_message_2">Future Tech. Now in your hands</string>
+    <string name="address_title">Address</string>
+    <string name="change_password_title">Change Password</string>
+    <string name="order_title">My Orders</string>
+    <string name="cart_title">My Cart</string>
+    <string name="discover_title">Discover</string>
+    <string name="logout_title">Logout</string>
+    <string name="login_title">Log In</string>
+    <string name="register_title">Sign Up</string>
+    <string name="forgot_password_title">Forgot Password ?</string>
+    <string name="future_message_1">This feature is currently under construction.</string>
+    <string name="future_message_2">We are working hard to bring you the best experience. Please check back later!</string>
+    <string name="clearance_message_1">Clearance Sales</string>
+    <string name="clearance_message_2">Up to 50% off</string>
 </resources>

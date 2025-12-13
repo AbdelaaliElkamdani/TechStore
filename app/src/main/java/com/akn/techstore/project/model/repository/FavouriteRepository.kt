@@ -1,12 +1,19 @@
 package com.akn.techstore.project.model.repository
-import com.akn.techstore.project.model.data.Product
+import androidx.lifecycle.LiveData
+import com.akn.techstore.project.database.TechStoreDao
+import com.akn.techstore.project.model.data.Favourite
 
-class FavouriteRepository {
-    suspend fun updateProductStatus(productId: Int, newStatus: Boolean): Boolean {
-        return true
+class FavouriteRepository(private val techStoreDao : TechStoreDao) {
+
+    val allFavourites : LiveData<List<Favourite>> = techStoreDao.getAllFavourites()
+
+    suspend fun addToFavourite(favourite: Favourite) {
+        techStoreDao.insertFavourite(favourite)
     }
 
-    suspend fun getFavouriteProducts(): List<Product> {
-        return emptyList()
+    suspend fun removeFromFavourite(productId: Int) {
+        techStoreDao.deleteFavouriteByProductId(productId)
     }
+
+    suspend fun isFavourite(productId: Int) = techStoreDao.isFavourite(productId)
 }

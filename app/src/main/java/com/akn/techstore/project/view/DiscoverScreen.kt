@@ -23,19 +23,21 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.akn.techstore.R
-import com.akn.techstore.project.viewModel.ProductListViewModel
+import com.akn.techstore.project.viewModel.ProductViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.akn.techstore.project.components.CategoryItem
@@ -46,21 +48,46 @@ import com.akn.techstore.project.navigation.Routes
 import com.akn.techstore.project.theme.*
 import kotlin.collections.chunked
 
-val mockCategories = listOf(
-    "All",
-    "Smartphones",
-    "Headphones",
-    "Laptop",
-    "Watch",
-)
-
 @Composable
 fun DiscoverScreen(
     navController: NavController,
-    viewModel: ProductListViewModel = viewModel()
+    viewModel: ProductViewModel = viewModel()
 ) {
+    val mockCategories = listOf(
+        stringResource(R.string.all),
+        stringResource(R.string.headphones),
+        stringResource(R.string.laptop),
+        stringResource(R.string.watch),
+        stringResource(R.string.smartphones),
+    )
+
     var searchQuery by remember { mutableStateOf("") }
-    val state by viewModel.state.collectAsState()
+    var categoryQuery by remember { mutableStateOf("All") }
+
+    // L'observation de l'état pour la liste des produits
+    val state by viewModel.productState.observeAsState()
+
+    val error = viewModel.error
+
+    // Cet effet se lance chaque fois que searchQuery ou categoryQuery changent.
+    LaunchedEffect(searchQuery, categoryQuery) {
+
+        // La logique pour déterminer quelle fonction appeler est déplacée ici.
+        if (searchQuery.isNotEmpty()) {
+            // L'utilisateur a tapé une recherche
+            viewModel.getSearchProducts(searchQuery)
+
+        } else if (categoryQuery.isNotEmpty() && categoryQuery != "All") {
+            // L'utilisateur a sélectionné une catégorie (sauf "All")
+            viewModel.getProductsByCategory(categoryQuery)
+
+        } else {
+            // Par défaut (searchQuery est vide ET categoryQuery est vide ou "All")
+            // On s'assure de recharger la liste complète s'il y a eu une recherche/catégorie précédente.
+            // Le loadProducts initial est géré par l'init du ViewModel, mais c'est bon de le rappeler ici si l'utilisateur efface tout.
+            viewModel.loadProducts()
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -85,7 +112,7 @@ fun DiscoverScreen(
             )
         }
 
-        if(state.isLoading) LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+        if(state == null) LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
 
         LazyColumn(
                 modifier = Modifier
@@ -98,7 +125,10 @@ fun DiscoverScreen(
                 item {
                     OutlinedTextField(
                         value = searchQuery,
-                        onValueChange = { searchQuery = it },
+                        onValueChange = {
+                            searchQuery = it
+                            categoryQuery = "" // Réinitialiser la sélection de catégorie
+                        },
                         placeholder = { Text("Search products...") },
                         leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search") },
                         shape = RoundedCornerShape(12.dp),
@@ -124,12 +154,15 @@ fun DiscoverScreen(
                         modifier = Modifier.padding(bottom = 24.dp)
                     ) {
                         items(mockCategories) { category ->
-                            CategoryItem(category)
+                            CategoryItem(category,category == categoryQuery.ifEmpty { "All" }, onCategoryClick = { it ->
+                                categoryQuery = it
+                                searchQuery = ""
+                            })
                         }
                     }
                 }
 
-                if (state.isLoading) {
+                if (state == null) {
                     val skeletonPlaceholders = List(4) { Unit }
                     items(skeletonPlaceholders.chunked(2)) { rowItems ->
                         Row(
@@ -143,14 +176,14 @@ fun DiscoverScreen(
                             }
                         }
                     }
-                } else if (state.error != null) {
+                } else if (error != null) {
                     item {
-                        Text("ERREUR: ${state.error}", color = Color.Red, modifier = Modifier.padding(16.dp))
+                        Text("ERREUR: ${error}", color = Color.Red, modifier = Modifier.padding(16.dp))
                     }
                 } else {
 
                     // Découpage de la liste des produits en lots de 2
-                    val productRows = state.products.chunked(2)
+                    val productRows = state!!.products.chunked(2)
 
                     // Liste de produits en grille 2xN
                     items(productRows) { rowItems ->
@@ -170,7 +203,6 @@ fun DiscoverScreen(
                                         }
                                 )
                             }
-                            // Si la ligne a un seul élément, ajoutez un espace vide pour l'alignement
                             if (rowItems.size == 1) {
                                 Spacer(modifier = Modifier.weight(1f))
                             }

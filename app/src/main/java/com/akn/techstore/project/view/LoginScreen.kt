@@ -25,7 +25,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -35,16 +37,19 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.akn.techstore.R
 import com.akn.techstore.project.viewModel.LoginState
 import com.akn.techstore.project.viewModel.LoginViewModel
+import com.akn.techstore.project.viewModelProvider.AuthViewModelProviderFactory
 
 @Composable
 fun LoginScreen(
     onNavigateToRegister: () -> Unit,
     onLoginSuccess: () -> Unit,
-    viewModel: LoginViewModel = viewModel()
+    viewModel: LoginViewModel = viewModel(factory = AuthViewModelProviderFactory(LocalContext.current))
 ) {
 
-    val state by viewModel.state.observeAsState(LoginState())
+    // Observation de l'état de connexion
+    val state by viewModel.state.observeAsState(initial = LoginState())
 
+    // Navigation vers la page d'accueil si la connexion est réussie
     LaunchedEffect(state.isLoginSuccessful) {
         if (state.isLoginSuccessful) {
             onLoginSuccess()
@@ -59,7 +64,7 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Log In",
+            text = stringResource(R.string.login_title),
             color = colorResource(id = R.color.black),
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
@@ -96,7 +101,7 @@ fun LoginScreen(
         Spacer(Modifier.height(8.dp))
 
         Text(
-            text = "Forgot password ?",
+            text = stringResource(R.string.forgot_password_title),
             color = colorResource(id = R.color.green),
             fontSize = 14.sp,
             modifier = Modifier.align(Alignment.Start)

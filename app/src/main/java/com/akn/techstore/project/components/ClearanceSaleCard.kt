@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -44,8 +45,8 @@ fun ClearanceSaleCard(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(modifier = Modifier.weight(1f)) {
-                Text("Clearance Sales", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                Text("Up to 50% off", color = Color.White, fontSize = 14.sp, modifier = Modifier.padding(vertical = 4.dp))
+                Text(stringResource(R.string.clearance_message_1), color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                Text(stringResource(R.string.clearance_message_2), color = Color.White, fontSize = 14.sp, modifier = Modifier.padding(vertical = 4.dp))
                 Button(
                     onClick = {  },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.White),

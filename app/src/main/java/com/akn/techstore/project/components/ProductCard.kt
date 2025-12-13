@@ -1,6 +1,5 @@
 package com.akn.techstore.project.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,11 +26,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.akn.techstore.R
 import com.akn.techstore.project.model.data.Product
 import com.akn.techstore.project.theme.DarkText
@@ -53,19 +52,18 @@ fun ProductCard(product: Product, modifier: Modifier = Modifier) {
                             .height(140.dp)
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(8.dp))
-                            .background(Color(0xFFE0E0E0))
 
                     ) {
-                        Image(
-                            painter = painterResource(id = product.imageResId),
-                            contentDescription = " Product Image ",
+                        AsyncImage(
+                            model = product.imageUrl,
+                            contentDescription = "Product Image",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
                                 .fillMaxSize()
                         )
                     }
 
-                    Icon(
+                    /*Icon(
                         Icons.Default.FavoriteBorder,
                         contentDescription = "Favorite",
                         tint = Color.Gray,
@@ -73,7 +71,7 @@ fun ProductCard(product: Product, modifier: Modifier = Modifier) {
                             .size(30.dp)
                             .padding(top = 8.dp, end = 8.dp)
                             .align(Alignment.TopEnd)
-                    )
+                    )*/
                 }
                 Spacer(Modifier.height(8.dp))
                 Text(
@@ -97,7 +95,7 @@ fun ProductCard(product: Product, modifier: Modifier = Modifier) {
                 }
                 Spacer(Modifier.height(4.dp))
                 Text(
-                    "${product.price}Dh",
+                    "${product.price} Dh",
                     fontWeight = FontWeight.Bold,
                     color = colorResource(id = R.color.green),
                     fontSize = 16.sp

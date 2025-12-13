@@ -1,7 +1,9 @@
 package com.akn.techstore.project.view
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -16,64 +18,44 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.akn.techstore.R
 import com.akn.techstore.project.components.CartItemRow
 import com.akn.techstore.project.components.PriceSummary
-import com.akn.techstore.project.localData.products
 import com.akn.techstore.project.model.data.Cart
-import com.akn.techstore.project.model.data.Product
 import com.akn.techstore.project.theme.*
-
-
-data class CartWithProduct(
-    val cart: Cart,
-    val product: Product
-)
+import com.akn.techstore.project.viewModel.CartViewModel
+import com.akn.techstore.project.viewModelProvider.CartViewModelProviderFactory
 
 @Composable
-fun CartScreen() {
-    val carts = listOf(
-        Cart(id = 1, productId = 102),
-        Cart(id = 2, productId = 301),
-        Cart(id = 3, productId = 402),
-    )
+fun CartScreen(
+    viewModel: CartViewModel = viewModel(factory = CartViewModelProviderFactory(LocalContext.current))
+) {
 
-    val cartItems: List<CartWithProduct> = carts.mapNotNull { cart ->
-        val product = products.find { it.id == cart.productId }
-        product?.let { CartWithProduct(cart, product) }
-    }
+    val cartItems by viewModel.allCarts.observeAsState(emptyList())
 
-    val cartItemsState = remember { mutableStateListOf<CartWithProduct>().apply { addAll(cartItems) } }
+    // Observation des StateFlows de prix
+    val subtotalHT by viewModel.subtotalHT.collectAsState()
+    val vat by viewModel.vat.collectAsState()
+    val totalTTC by viewModel.totalTTC.collectAsState()
 
-    val updateQuantity: (CartWithProduct, Int) -> Unit = { item, newQuantity ->
-        val index = cartItemsState.indexOfFirst { it.cart.id == item.cart.id }
+    // Constante pour la livraison
+    val deliveryFee = viewModel.DELIVERY_FEE
 
-        if (index != -1) {
-            if (newQuantity <= 0) {
-                cartItemsState.removeAt(index)
-            } else {
-                val updatedCart = item.cart.copy(quantity = newQuantity)
-                cartItemsState[index] = item.copy(cart = updatedCart)
-            }
-        }
-    }
-
-    val subtotal = cartItemsState.sumOf { it.product.price * it.cart.quantity }
-
-    val deliveryFee = 5.00
-    val discountRate = 0.40
-    val discount = if (subtotal > 0) subtotal * discountRate else 0.0
-
-    val total = subtotal + deliveryFee - discount
-
-
+    // Recuperation du context
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -85,9 +67,8 @@ fun CartScreen() {
                 .fillMaxWidth()
                 .background(colorResource(id = R.color.white))
         ) {
-
             Text(
-                text = "My Cart",
+                text = stringResource(R.string.cart_title),
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 color = DarkText,
@@ -98,38 +79,75 @@ fun CartScreen() {
             )
         }
 
-        LazyColumn(
-            modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            items(cartItemsState, key = { it.cart.id }) { item ->
-                CartItemRow(
-                    item = item,
-                    onQuantityChange = { newQty -> updateQuantity(item, newQty) },
-                    onRemove = { updateQuantity(item, 0) }
+        if (cartItems.isNotEmpty()) {
+
+            // Fonction pour mettre à jour la quantité dans la base de données
+            val updateQuantity: (Cart, Int) -> Unit = { item, newQuantity ->
+                if (newQuantity <= 0) {
+                    viewModel.removeFromCart(item.id)
+                } else {
+                    viewModel.updateQuantity(newQuantity, item.id)
+                }
+            }
+
+            LazyColumn(
+                modifier = Modifier.weight(1f),
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                // Utilisation directe de cartItems
+                items(cartItems, key = { it.id }) { item ->
+                    CartItemRow(
+                        item = item,
+                        onQuantityChange = { newQty -> updateQuantity(item, newQty) },
+                        onRemove = { updateQuantity(item, 0) }
+                    )
+                }
+
+                item {
+                    // Passage des variables d'état observées
+                    PriceSummary(
+                        subtotalHT = subtotalHT,
+                        deliveryFee = deliveryFee,
+                        VAT = vat,
+                        totalTTC = totalTTC
+                    )
+                }
+            }
+
+            Button(
+                onClick = {
+                    viewModel.checkout()
+                    Toast.makeText(context, "Checkout successful!", Toast.LENGTH_SHORT).show()
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = PrimaryGreen),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                    .height(56.dp)
+            ) {
+                Text(
+                    text = "Checkout for ${"%.2f".format(totalTTC)} Dh",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold
                 )
             }
-
-            item {
-                PriceSummary(subtotal, deliveryFee, discount, total)
+        } else {
+            // ... (Panier vide) ...
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "No products in the cart found",
+                    fontSize = 18.sp,
+                    color = Color.Gray,
+                    modifier = Modifier.padding(16.dp)
+                )
             }
-        }
-
-        Button(
-            onClick = {  },
-            colors = ButtonDefaults.buttonColors(containerColor = PrimaryGreen),
-            shape = RoundedCornerShape(12.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-                .height(56.dp)
-        ) {
-            Text(
-                text = "Checkout for ${"%.2f".format(total)} Dh",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold
-            )
         }
     }
 }

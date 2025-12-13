@@ -1,13 +1,33 @@
 package com.akn.techstore.project.model.repository
 
+import androidx.lifecycle.LiveData
+import com.akn.techstore.project.database.TechStoreDao
 import com.akn.techstore.project.model.data.Cart
+import com.akn.techstore.project.model.data.Favourite
 import com.akn.techstore.project.model.data.Product
 import kotlinx.coroutines.delay
 
-class CartRepository {
+class CartRepository(private val techStoreDao : TechStoreDao) {
 
-    suspend fun getCartProducts(): List<Cart> {
-        delay(2000)
-        return listOf(Cart(1, 101), Cart(2, 102), Cart(3, 103))
+    val allUnconfirmedCarts : LiveData<List<Cart>> = techStoreDao.getUnconfirmedCarts()
+
+    val allConfirmedCarts : LiveData<List<Cart>> = techStoreDao.getConfirmedCarts()
+
+    suspend fun addToCart(cart: Cart) {
+        techStoreDao.insertCart(cart)
+    }
+
+    suspend fun removeFromCart(cartId: Int) {
+        techStoreDao.deleteCartById(cartId)
+    }
+
+    suspend fun isInCart(productId: Int) = techStoreDao.isInCart(productId)
+
+    suspend fun updateQuantity(quantity: Int, id: Int) {
+        techStoreDao.updateQuantity(quantity, id)
+    }
+
+    fun confirmAllCarts() {
+        techStoreDao.confirmAllCarts()
     }
 }
