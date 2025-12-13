@@ -1,4 +1,4 @@
-package com.akn.techstore.project.model.data
+package com.akn.techstore.project.models.dataModels
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

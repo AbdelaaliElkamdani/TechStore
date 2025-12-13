@@ -1,9 +1,9 @@
-package com.akn.techstore.project.model.repository
+package com.akn.techstore.project.models.repositories
 
 import androidx.lifecycle.LiveData
 import com.akn.techstore.project.database.TechStoreDao
-import com.akn.techstore.project.model.data.Setting
-import com.akn.techstore.project.model.data.User
+import com.akn.techstore.project.models.dataModels.Setting
+import com.akn.techstore.project.models.dataModels.User
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException

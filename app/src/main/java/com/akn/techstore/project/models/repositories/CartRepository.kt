@@ -1,11 +1,8 @@
-package com.akn.techstore.project.model.repository
+package com.akn.techstore.project.models.repositories
 
 import androidx.lifecycle.LiveData
 import com.akn.techstore.project.database.TechStoreDao
-import com.akn.techstore.project.model.data.Cart
-import com.akn.techstore.project.model.data.Favourite
-import com.akn.techstore.project.model.data.Product
-import kotlinx.coroutines.delay
+import com.akn.techstore.project.models.dataModels.Cart
 
 class CartRepository(private val techStoreDao : TechStoreDao) {
 

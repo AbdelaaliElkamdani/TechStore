@@ -2,8 +2,8 @@ package com.akn.techstore.project.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.akn.techstore.project.model.data.Setting
-import com.akn.techstore.project.model.repository.UserRepository
+import com.akn.techstore.project.models.dataModels.Setting
+import com.akn.techstore.project.models.repositories.UserRepository
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth

@@ -34,7 +34,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.akn.techstore.R
 import com.akn.techstore.project.components.CartItemRow
 import com.akn.techstore.project.components.PriceSummary
-import com.akn.techstore.project.model.data.Cart
+import com.akn.techstore.project.models.dataModels.Cart
 import com.akn.techstore.project.theme.*
 import com.akn.techstore.project.viewModel.CartViewModel
 import com.akn.techstore.project.viewModelProvider.CartViewModelProviderFactory

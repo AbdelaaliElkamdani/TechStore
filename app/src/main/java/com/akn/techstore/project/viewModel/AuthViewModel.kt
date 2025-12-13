@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.akn.techstore.project.model.repository.UserRepository
+import com.akn.techstore.project.models.repositories.UserRepository
 import kotlinx.coroutines.launch
 
 

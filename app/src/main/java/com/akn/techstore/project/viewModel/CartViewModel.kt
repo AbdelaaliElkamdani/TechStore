@@ -4,8 +4,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.akn.techstore.project.model.data.Cart
-import com.akn.techstore.project.model.repository.CartRepository
+import com.akn.techstore.project.models.dataModels.Cart
+import com.akn.techstore.project.models.repositories.CartRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -31,7 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.akn.techstore.project.model.data.Cart
+import com.akn.techstore.project.models.dataModels.Cart
 import com.akn.techstore.project.theme.*
 
 @Composable

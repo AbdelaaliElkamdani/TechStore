@@ -1,6 +1,5 @@
-package com.akn.techstore.project.model.data
+package com.akn.techstore.project.models.dataModels
 
-import androidx.annotation.DrawableRes
 import com.google.gson.annotations.SerializedName
 import kotlin.String
 

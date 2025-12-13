@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.akn.techstore.project.model.repository.ProductRepository
+import com.akn.techstore.project.models.repositories.ProductRepository
 import androidx.lifecycle.viewModelScope
 import com.akn.techstore.project.api.response.ApiResponse
 import kotlinx.coroutines.launch

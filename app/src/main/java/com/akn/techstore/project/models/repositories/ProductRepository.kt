@@ -1,4 +1,4 @@
-package com.akn.techstore.project.model.repository
+package com.akn.techstore.project.models.repositories
 
 import com.akn.techstore.project.api.service.ApiInstance
 
